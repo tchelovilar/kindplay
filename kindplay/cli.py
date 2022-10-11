@@ -14,10 +14,10 @@ def requirements_check():
         print("kind not found, please install kind.")
         exit_code = 1
 
-    kubectl_status = run_command("kubectl version")
-    if kubectl_status["return_code"] != 0:
-        print("kubectl not found, please install kubectl.")
-        exit_code = 1
+    # kubectl_status = run_command("kubectl version")
+    # if kubectl_status["return_code"] != 0:
+    #     print("kubectl not found, please install kubectl.")
+    #     exit_code = 1
 
     if exit_code:
         sys.exit(exit_code)

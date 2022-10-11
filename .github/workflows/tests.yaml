@@ -1,0 +1,36 @@
+
+---
+name: Tests
+
+on: push
+
+jobs:
+  tests:
+    name: tests
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Install Kind
+      run: |
+        if ! kind --version
+        then
+          mkdir .bin
+          kind_latest_version=$(curl --silent "https://api.github.com/repos/kubernetes-sigs/kind/releases/latest" | jq -r .tag_name)
+          curl -Lo ./bin/kind https://kind.sigs.k8s.io/dl/$kind_latest_version/kind-linux-amd64
+          chmod +x .bin/kind
+        fi
+        echo "$GITHUB_WORKSPACE/.bin" >> $GITHUB_PATH
+
+    - uses: actions/setup-python@v4
+      with:
+        python-version: '3.10' 
+
+    - name: Install dependencies
+      run: pip install -r requirements.txt
+
+    - name: Start Playground
+      run: |
+        python kindplay/cli.py start tests/playgrounds/basic/
