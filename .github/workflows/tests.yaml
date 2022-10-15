@@ -4,7 +4,9 @@ name: Tests
 
 on: push
 
-concurrency: tests-${{ github.ref }}
+concurrency: 
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   tests:
@@ -47,7 +49,10 @@ jobs:
       if: ${{ startsWith( matrix.os, 'macos' ) }}
 
     - name: Install dependencies
-      run: pip install -r requirements.txt
+      run: |
+        pip install -r requirements.txt
+        helm version
+        helm repo update
 
     - name: Start Playground
       run: |

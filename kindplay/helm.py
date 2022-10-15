@@ -1,4 +1,5 @@
 import os
+import sys
 
 from tools import run_command
 
@@ -21,15 +22,17 @@ def get_workloads(playground_path):
 
 
 def helm_deploy(chart_info):
-    print(
-            '\n###', 
-            f'\n### Setting up {chart_info["namespace"]}/{chart_info["release_name"]}',
+    print( 
+            f'\n## Setting up {chart_info["namespace"]}/{chart_info["release_name"]}',
             flush=True
         )
 
     print("- Helm dependency update", flush=True)
     dep_cmd = f'helm dependency update --skip-refresh {chart_info["chart_dir"]}'
-    run_command(dep_cmd, stdout=None, stderr=None)
+    dep_status = run_command(dep_cmd, stdout=None, stderr=None)
+    if dep_status["return_code"] != 0:
+        print("Fail to setup helm dependencies.")
+        sys.exit(1)
 
     print("- Helm upgrade", flush=True)
     helm_cmd = f'helm upgrade --install --wait --timeout 10m "{chart_info["release_name"]}" -n "{chart_info["namespace"]}" -f "{chart_info["values_file"]}" {chart_info["chart_dir"]}'
