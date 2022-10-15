@@ -35,6 +35,9 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
+    - uses: docker-practice/actions-setup-docker@master
+      if: ${{ startsWith( matrix.os, 'macos' ) }}
+
     - name: Install dependencies
       run: pip install -r requirements.txt
 
