@@ -1,15 +1,5 @@
 
-
-
 nginx-ingress-controller:
-  # kind: DaemonSet
-
-  # daemonset:
-  #   useHostPort: true
-  #   hostPorts:
-  #     http: 30080
-  #     https: 30443
-
   service:
     type: NodePort
 

@@ -41,3 +41,6 @@ def start_kind(base_path, kind_config, playground_config):
 def stop_kind(base_path, kind_config, playground_config):
     kind_stop = f"kind delete cluster --name {kind_config['name']}"
     run_command(kind_stop, None, None)
+
+    print("\n### Running Post Stop Scripts")
+    run_scripts(playground_config["postStop"], base_path)

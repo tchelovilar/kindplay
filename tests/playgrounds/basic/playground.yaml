@@ -21,5 +21,4 @@ postStart:
 postStop:
 - description: "Clean up local registry"
   run: |
-    docker rm -f --name "kind-registry"
-    docker network disconnect "kind" "kind-registry"
+    docker rm -f "kind-registry"
