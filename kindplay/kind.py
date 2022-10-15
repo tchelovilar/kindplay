@@ -14,7 +14,7 @@ def run_scripts(script_list, base_path):
     for script in script_list:
         with tempfile.NamedTemporaryFile() as fp:
             if script.get("description"):
-                print(f"- Running script {script.get('description')}")
+                print(f"- {script.get('description')}")
             fp.file.write(script_header.encode())
             fp.file.write(script["run"].encode())
             fp.file.close()
@@ -23,15 +23,8 @@ def run_scripts(script_list, base_path):
             run_command(script_file, None, None)
 
 
-def start_kind(base_path):
+def start_kind(base_path, kind_config, playground_config):
     kind_config_file = os.path.join(base_path,"kind.yaml")
-    playground_config_file = os.path.join(base_path,"playground.yaml")
-
-    with open(kind_config_file) as fp:
-        kind_config = yaml.safe_load(fp)
-
-    with open(playground_config_file) as fp:
-        playground_config = yaml.safe_load(fp)
 
     print("### Preparing local Kind")
     kind_check = f'kind get kubeconfig --name {kind_config["name"]}'

@@ -1,0 +1,17 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "play basic",
+            "type": "python",
+            "request": "launch",
+            "program": "kindplay/cli.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": [
+                "start",
+                "tests/playgrounds/basic/"
+            ]
+        }
+    ]
+}
