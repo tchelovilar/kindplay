@@ -52,5 +52,7 @@ jobs:
       run: pip install -r requirements.txt
 
     - name: Start Playground
-      run: |
-        python -u kindplay/cli.py start tests/playgrounds/basic/
+      run: python kindplay/cli.py start tests/playgrounds/basic/
+
+    - name: Stop Playground
+      run: python kindplay/cli.py stop tests/playgrounds/basic/
