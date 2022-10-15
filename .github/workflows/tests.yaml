@@ -24,7 +24,7 @@ jobs:
         then
           mkdir .bin
           ARCH=linux-amd64
-          [[ ${{ matrix.os }} == "macos"*  ]] && ARCH=darwin-arm64 
+          [[ ${{ matrix.os }} == "macos-12"  ]] && ARCH=darwin-amd64
           kind_latest_version=$(curl --silent "https://api.github.com/repos/kubernetes-sigs/kind/releases/latest" | jq -r .tag_name)
           curl -Lo .bin/kind https://kind.sigs.k8s.io/dl/$kind_latest_version/kind-${ARCH}
           chmod +x .bin/kind
