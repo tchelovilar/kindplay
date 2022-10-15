@@ -6,9 +6,10 @@ import sys
 import yaml
 
 from kubernetes import client, config
-from kubernetes.client.exceptions import ApiException, ApiTypeError
+from kubernetes.client.exceptions import ApiException
 from kind import start_kind, stop_kind
 from tools import run_command
+from helm import helm_deploy_all
 
 
 def requirements_check():
@@ -70,6 +71,21 @@ def playground_start(base_path):
 
     create_namespaces(base_path, k8s_core)
 
+    helm_deploy_all(base_path, playground_config["kubernetes"]["priorityCharts"])
+
+
+def playground_stop(base_path):
+    kind_config_file = os.path.join(base_path,"kind.yaml")
+    playground_config_file = os.path.join(base_path,"playground.yaml")
+
+    with open(kind_config_file) as fp:
+        kind_config = yaml.safe_load(fp)
+
+    with open(playground_config_file) as fp:
+        playground_config = yaml.safe_load(fp)
+
+    stop_kind(base_path, kind_config, playground_config)
+
 
 def main(): 
     requirements_check()
@@ -93,7 +109,7 @@ def main():
         playground_start(base_path)
 
     if args.subparser == "stop":
-        stop_kind(base_path)
+        playground_stop(base_path)
 
 
 if __name__ == "__main__":

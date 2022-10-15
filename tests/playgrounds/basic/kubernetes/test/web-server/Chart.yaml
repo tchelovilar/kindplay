@@ -1,0 +1,9 @@
+apiVersion: v2
+name: web-server
+version: 0.1.0
+description: Setup nginx web-server
+
+dependencies:
+- name: nginx
+  version: "*.*.*"
+  repository: https://charts.bitnami.com/bitnami

@@ -5,7 +5,7 @@ from tools import run_command
 
 def get_workloads(playground_path):
     workloads = dict()
-    charts_path = os.path.join(playground_path, "charts")
+    charts_path = os.path.join(playground_path, "kubernetes")
     for namespace in os.listdir(charts_path):
         for basedir, dirs, files in os.walk(os.path.join(charts_path, namespace)):
             if f"values.yaml" in files:
