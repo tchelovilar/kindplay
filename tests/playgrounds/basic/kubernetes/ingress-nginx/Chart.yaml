@@ -1,0 +1,9 @@
+apiVersion: v2
+name: ingress-nginx
+version: 0.1.0
+description: Setup nginx ingress
+
+dependencies:
+- name: nginx-ingress-controller
+  version: 9.3.*
+  repository: https://charts.bitnami.com/bitnami

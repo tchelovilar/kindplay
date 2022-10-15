@@ -4,19 +4,29 @@ name: Tests
 
 on: push
 
+concurrency: 
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   tests:
     name: tests
 
     strategy:
+      fail-fast: false
       matrix:
         python-version: ['3.10', '3.9']
-        os: [ubuntu-latest, macos-12]
+        os: [ubuntu-latest]
 
     runs-on: ${{ matrix.os }}
 
     steps:
     - uses: actions/checkout@v3
+
+    - uses: azure/setup-helm@v3
+      with:
+        version: 'latest'
+        token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Install Kind
       run: |
@@ -24,7 +34,7 @@ jobs:
         then
           mkdir .bin
           ARCH=linux-amd64
-          [[ ${{ matrix.os }} == "macos-12"  ]] && ARCH=darwin-amd64
+          [[ ${{ matrix.os }} == "macos-"*  ]] && ARCH=darwin-amd64
           kind_latest_version=$(curl --silent "https://api.github.com/repos/kubernetes-sigs/kind/releases/latest" | jq -r .tag_name)
           curl -Lo .bin/kind https://kind.sigs.k8s.io/dl/$kind_latest_version/kind-${ARCH}
           chmod +x .bin/kind
@@ -42,5 +52,7 @@ jobs:
       run: pip install -r requirements.txt
 
     - name: Start Playground
-      run: |
-        python kindplay/cli.py start tests/playgrounds/basic/
+      run: python kindplay/cli.py start tests/playgrounds/basic/
+
+    - name: Stop Playground
+      run: python kindplay/cli.py stop tests/playgrounds/basic/

@@ -1,0 +1,13 @@
+
+
+
+nginx:
+  fullnameOverride: web-server
+
+  service:
+    type: ClusterIP
+
+  ingress:
+    enabled: true
+    hostname: localhost
+    ingressClassName: nginx

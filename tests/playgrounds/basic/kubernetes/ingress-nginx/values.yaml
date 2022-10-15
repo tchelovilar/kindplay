@@ -1,0 +1,16 @@
+
+nginx-ingress-controller:
+  service:
+    type: NodePort
+
+    ports:
+      http: 80
+      https: 443
+
+    targetPorts:
+      http: http
+      https: https
+
+    nodePorts:
+      http: 30080
+      https: 30443
