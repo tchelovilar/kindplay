@@ -27,12 +27,13 @@ def helm_deploy(chart_info):
             flush=True
         )
 
+    print("- Helm dependency update", flush=True)
     dep_cmd = f'helm dependency update --skip-refresh {chart_info["chart_dir"]}'
     run_command(dep_cmd, stdout=None, stderr=None)
 
+    print("- Helm upgrade", flush=True)
     helm_cmd = f'helm upgrade --install --wait --timeout 10m "{chart_info["release_name"]}" -n "{chart_info["namespace"]}" -f "{chart_info["values_file"]}" {chart_info["chart_dir"]}'
     run_command(helm_cmd, stdout=None, stderr=None)
-
 
 
 def helm_deploy_all(playground_path, priority_charts=list()):
