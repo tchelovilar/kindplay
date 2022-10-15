@@ -21,6 +21,11 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
+    - uses: azure/setup-helm@v3
+      with:
+        version: 'latest'
+        token: ${{ secrets.GITHUB_TOKEN }}
+
     - name: Install Kind
       run: |
         if ! kind --version
@@ -46,4 +51,4 @@ jobs:
 
     - name: Start Playground
       run: |
-        python kindplay/cli.py start tests/playgrounds/basic/
+        python -u kindplay/cli.py start tests/playgrounds/basic/

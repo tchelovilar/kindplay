@@ -22,8 +22,9 @@ def get_workloads(playground_path):
 
 def helm_deploy(chart_info):
     print(
-        '\n###', 
-        f'\n### Setting up {chart_info["namespace"]}/{chart_info["release_name"]}'
+            '\n###', 
+            f'\n### Setting up {chart_info["namespace"]}/{chart_info["release_name"]}',
+            flush=True
         )
 
     dep_cmd = f'helm dependency update --skip-refresh {chart_info["chart_dir"]}'
