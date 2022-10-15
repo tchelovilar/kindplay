@@ -49,10 +49,7 @@ jobs:
       if: ${{ startsWith( matrix.os, 'macos' ) }}
 
     - name: Install dependencies
-      run: |
-        pip install -r requirements.txt
-        helm version
-        helm repo update
+      run: pip install -r requirements.txt
 
     - name: Start Playground
       run: |

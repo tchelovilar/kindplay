@@ -4,6 +4,17 @@ import sys
 from tools import run_command
 
 
+def helm_prepare():
+    '''
+        Add one repository to the helm.
+    '''
+    helm_repo = "helm repo list"
+    helm_repo_result = run_command(helm_repo)
+    if helm_repo_result["return_code"] != 0:
+        helm_add_repo = "helm repo add bitnami https://charts.bitnami.com/bitnami"
+        run_command(helm_add_repo, None, None)
+
+
 def get_workloads(playground_path):
     workloads = dict()
     charts_path = os.path.join(playground_path, "kubernetes")
