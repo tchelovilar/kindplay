@@ -1,0 +1,32 @@
+---
+name: Publish
+
+on:
+  push:
+    paths:
+    - setup.cfg
+
+jobs:
+  publish:
+    name: publish
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install dependencies
+      run: pip install -r requirements-dev.txt
+
+    - name: Build
+      run: python -m build
+
+    - name: Upload
+      # if: github.ref == 'refs/heads/master'
+      env:
+        TWINE_PASSWORD: ${{ secrets.pypi_token }}
+      run: python -m twine upload --non-interactive -u __token__ --repository pypi dist/*
