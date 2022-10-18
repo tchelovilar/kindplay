@@ -48,8 +48,13 @@ jobs:
     - uses: docker-practice/actions-setup-docker@master
       if: ${{ startsWith( matrix.os, 'macos' ) }}
 
-    - name: Install dependencies
-      run: pip install -r requirements.txt
+    - name: Install build dependencies
+      run: pip install -r requirements-dev.txt
+    
+    - name: Install local package
+      run: |
+        python -m build
+        pip install dist/*.tar.gz
 
     - name: Start Playground
       run: PYTHONPATH=$(pwd) python kindplay/cli.py start tests/playgrounds/basic/

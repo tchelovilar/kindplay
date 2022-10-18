@@ -26,7 +26,7 @@ jobs:
       run: python -m build
 
     - name: Upload
-      # if: github.ref == 'refs/heads/master'
+      if: github.ref == 'refs/heads/master'
       env:
         TWINE_PASSWORD: ${{ secrets.pypi_token }}
       run: python -m twine upload --non-interactive -u __token__ --repository pypi dist/*
