@@ -1,3 +1,13 @@
 __pycache__
+<<<<<<< Updated upstream
 *.tgz
 Chart.lock
+=======
+<<<<<<< Updated upstream
+=======
+*.tgz
+Chart.lock
+/dist
+*.egg-info
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes

@@ -1,3 +1,21 @@
+[project]
+name = "kindplay"
+version = "0.0.1"
+authors = [
+  { name="Marcelo Silveira Vilar", email="tchelovilar@gmail.com" },
+]
+description = "Kind playground cli"
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/tchelovilar/kindplay"
+
 [build-system]
 build-backend = "setuptools.build_meta"
 requires = ["setuptools", "wheel"]

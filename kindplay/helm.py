@@ -1,7 +1,7 @@
 import os
 import sys
 
-from tools import run_command
+from kindplay.tools import run_command
 
 
 def helm_prepare():
