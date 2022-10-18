@@ -1,7 +1,7 @@
 
 kubernetes:
   priorityCharts:
-  - monitoring/prometheus
+  - ingress-nginx/ingress-nginx
 
 
 postStart:
