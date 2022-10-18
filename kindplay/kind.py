@@ -1,9 +1,9 @@
 import stat
 import tempfile
-import yaml
+import sys
 import os
 
-from tools import run_command
+from kindplay.tools import run_command
 
 
 def run_scripts(script_list, base_path):
@@ -30,7 +30,9 @@ def start_kind(base_path, kind_config, playground_config):
     kind_check = f'kind get kubeconfig --name {kind_config["name"]}'
     if run_command(kind_check)["return_code"] != 0:
         kind_start = f"kind create cluster --config {kind_config_file}"
-        run_command(kind_start, None, None)
+        if run_command(kind_start, None, None)["return_code"] != 0:
+            print("Fail to start kind cluster")
+            sys.exit(1)
     else:
         print("- Kind cluster already exist, skipping creation")
 

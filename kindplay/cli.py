@@ -7,9 +7,9 @@ import yaml
 
 from kubernetes import client, config
 from kubernetes.client.exceptions import ApiException
-from kind import start_kind, stop_kind
-from tools import run_command
-from helm import helm_deploy_all, helm_prepare
+from kindplay.kind import start_kind, stop_kind
+from kindplay.tools import run_command
+from kindplay.helm import helm_deploy_all, helm_prepare
 
 
 def requirements_check():
